@@ -910,7 +910,15 @@ var JSLINT = (function () {
             'encodeURI', 'encodeURIComponent', 'Error', 'eval', 'EvalError',
             'Function', 'isFinite', 'isNaN', 'JSON', 'Math', 'Number',
             'Object', 'parseInt', 'parseFloat', 'RangeError', 'ReferenceError',
-            'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError'
+            'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError',
+
+            // Custom globals
+            '$', '$$', '$A', '$F', '$H', '$R', '$w', '$break',
+            'Abstract', 'Ajax', 'Class', 'Control', 'Element', 'Enumerable', 'Effect', 'Event', 'Field',
+            'Form', 'Hash', 'Insertion', 'ObjectRange', 'PeriodicalExecuter',
+            'Position', 'Prototype', 'Selector', 'Template', 'Toggle', 'Try',
+            'ZAPI', '$C', 'APP', 'SITE', '$Z', 'goog', 'google',
+            'window', 'document', 'HAPI', '_', 'jQuery', 'JST', 'jasmine'
         ], false),
 
         strict_mode,
