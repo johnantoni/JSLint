@@ -20,6 +20,7 @@ Copyright (c) 2013 J Smith <dark.panda@gmail.com> Node Edition
       'regexp': true,
       'browser': true,
       'undef': true,
+      'unparam': true,
       'white': true,
       'devel': true,
       'verbose': false
