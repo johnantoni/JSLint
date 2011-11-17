@@ -14,13 +14,13 @@ importPackage(java.lang);
     'eqeqeq': true,
     'immed': true,
     'newcap': true,
-    'nomen': false,
+    'nomen': true,
     'onevar': true,
     'plusplus': true,
     'regexp': true,
     'browser': true,
     'undef': true,
-    'white': false,
+    'white': true,
     'devel': true
   };
 
