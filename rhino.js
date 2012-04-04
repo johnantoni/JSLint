@@ -9,6 +9,25 @@ importPackage(java.lang);
       return f.getName();
   }
 
+  function readFromFile(fileName) {
+    var reader, input, line, output = '';
+
+    if (fileName === 'STDIN') {
+      input = new InputStreamReader(System['in']);
+    }
+    else {
+      input = new FileReader(fileName);
+    }
+
+    reader = new BufferedReader(input);
+
+    while ((line = reader.readLine())) {
+      output += line + "\n";
+    }
+
+    return output;
+  }
+
   var OPTIONS = {
     'bitwise': true,
     'eqeqeq': true,
@@ -25,50 +44,43 @@ importPackage(java.lang);
   };
 
   if (a.indexOf('-h') >= 0) {
-    print("Usage: " + commandName() + " file.js OR read from STDIN");
+    print("Usage: " + commandName() + " [file1.js ... fileN.js] OR read from STDIN");
     quit(1);
   }
 
   (function() {
-    var fileName, input;
+    var files, exit = 0;
 
     if (!a.length) {
-      (function() {
-        var reader = new BufferedReader(new InputStreamReader(System['in'])),
-          line;
-
-        input = '';
-        fileName = 'STDIN';
-
-        while ((line = reader.readLine())) {
-          input += line + "\n";
-        }
-      }());
+      files = [ 'STDIN' ];
     }
     else {
-      input = readFile(a[0]);
-      fileName = a[0];
+      files = a;
     }
 
-    if (!JSLINT(input, OPTIONS)) {
-      (function() {
-        var e, i;
+    files.forEach(function(fileName) {
+      var input = readFromFile(fileName);
 
-        print("ERRORS in " + fileName + ":");
-        for (i = 0; i < JSLINT.errors.length; i += 1) {
-          e = JSLINT.errors[i];
-          if (e) {
-            print('Lint at line ' + e.line + ' character ' + e.character + ': ' + e.reason);
-            print((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
-            print('');
-          }
-        }
-        quit(2);
-      }());
-    }
-    else {
-      print("SUCCESS! No problems found in " + fileName);
-      quit();
-    }
+      if (!JSLINT(input, OPTIONS)) {
+        (function() {
+          print("ERRORS in " + fileName + ":");
+          JSLINT.errors.forEach(function(e) {
+            if (e) {
+              print('Lint at line ' + e.line + ' character ' + e.character + ': ' + e.reason);
+              print((e.evidence || '').replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
+              print('');
+            }
+          });
+          exit = 2;
+        }());
+      }
+      else {
+        print("SUCCESS! No problems found in " + fileName);
+      }
+
+      print("\n\n");
+    });
+
+    quit(exit);
   }());
 }(arguments));
