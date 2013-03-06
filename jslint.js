@@ -1977,7 +1977,7 @@ klass:              do {
                 scope[name] = token;
             }
         }
-        token.function = funct;
+        token.funktion = funct;
         funct[name] = kind;
     }
 
@@ -2101,7 +2101,7 @@ klass:              do {
         prev_token = token;
         token = next_token;
         next_token = lookahead.shift() || lex.token();
-        next_token.function = funct;
+        next_token.funktion = funct;
         tokens.push(next_token);
     }
 
@@ -2841,7 +2841,7 @@ klass:              do {
                     l = l.first;
                 } while (l);
             }
-            if (left === syntax.function) {
+            if (left === syntax.funktion) {
                 warn('identifier_function', token);
             }
             if (left.id === '.' || left.id === '[') {
@@ -3127,7 +3127,7 @@ klass:              do {
                 }
 
             }
-            site = variable.function;
+            site = variable.funktion;
 
 // The name is in scope and defined in the current function.
 
@@ -3153,7 +3153,7 @@ klass:              do {
                     warn('a_label', token, name);
                     break;
                 }
-                this.function = funct;
+                this.funktion = funct;
 
 // If the name is already defined in the current
 // function, but not as outer, then there is a scope error.
@@ -3189,12 +3189,12 @@ klass:              do {
                         funct[name] = site === global_funct
                             ? 'global'
                             : 'outer';
-                        this.function = site;
+                        this.funktion = site;
                         break;
                     case 'unparam':
                         site[name] = 'parameter';
                         funct[name] = 'outer';
-                        this.function = site;
+                        this.funktion = site;
                         break;
                     case 'undef':
                         funct[name] = 'undef';
@@ -3897,7 +3897,7 @@ klass:              do {
     function function_params() {
         var id, paren = next_token, params = [];
         advance('(');
-        token.function = funct;
+        token.funktion = funct;
         step_in();
         no_space();
         if (next_token.id === ')') {
@@ -3934,12 +3934,12 @@ klass:              do {
             '(token)'    : func,
             '(level)'    : old_funct['(level)'] + 1
         };
-        func.function = funct;
+        func.funktion = funct;
         option = Object.create(old_option);
         scope = Object.create(old_scope);
         functions.push(funct);
         func.name = name;
-        func.function = funct;
+        func.funktion = funct;
         if (name) {
             add_label(func, 'function', name);
         }
@@ -4566,7 +4566,7 @@ klass:              do {
             one_space_only();
             if (funct[label] !== 'label') {
                 warn('not_a_label', next_token);
-            } else if (scope[label].function !== funct) {
+            } else if (scope[label].funktion !== funct) {
                 warn('not_a_scope', next_token);
             }
             this.first = next_token;
@@ -4588,7 +4588,7 @@ klass:              do {
             one_space_only();
             if (funct[label] !== 'label') {
                 warn('not_a_label', next_token);
-            } else if (scope[label].function !== funct) {
+            } else if (scope[label].funktion !== funct) {
                 warn('not_a_scope', next_token);
             }
             this.first = next_token;
@@ -6396,7 +6396,7 @@ klass:              do {
                 snippets = [];
                 for (i = 0; i < data.unused.length; i += 1) {
                     snippets[i] = '<code>' + data.unused[i].name + '</code>&nbsp;<address>' +
-                        data.unused[i].function  + ' ' +
+                        data.unused[i].funktion  + ' ' +
                         String(data.unused[i].line) + '</address>';
                 }
                 output.push(snippets.join(', '));
@@ -6524,13 +6524,13 @@ klass:              do {
             from = token.from;
             line = token.line;
             thru = token.thru;
-            level = token.function['(level)'];
+            level = token.funktion['(level)'];
             do {
                 thru = token.thru;
                 token = data.tokens[i];
                 i += 1;
             } while (token && token.line === line && token.from - thru < 5 &&
-                    level === token.function['(level)']);
+                    level === token.funktion['(level)']);
             result.push({
                 line: line,
                 level: level,
