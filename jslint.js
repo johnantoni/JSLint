@@ -258,7 +258,9 @@
     var_a_not, var_loop, vars, varstatement, warn, warning, was,
     weird_assignment, weird_condition, weird_new, weird_program, weird_relation,
     weird_ternary, white, wrap, wrap_immediate, wrap_regexp, write_is_wrong,
-    writeable
+    writeable,
+
+    zoocasa, jasmine
 */
 
 // The global directive is used to declare global variables that can
@@ -315,7 +317,10 @@ var JSLINT = (function () {
             sub       : true,
             todo      : true,
             vars      : true,
-            white     : true
+            white     : true,
+
+            zoocasa   : true,
+            jasmine   : false
         },
         anonname,       // The guessed name for anonymous functions.
 
@@ -586,17 +591,23 @@ var JSLINT = (function () {
             'encodeURI', 'encodeURIComponent', 'Error', 'eval', 'EvalError',
             'Function', 'isFinite', 'isNaN', 'JSON', 'Math', 'Number',
             'Object', 'parseInt', 'parseFloat', 'RangeError', 'ReferenceError',
-            'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError',
+            'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError'
+        ], false),
 
-            // Custom globals
-            '$', '$$', '$A', '$F', '$H', '$R', '$w', '$break',
-            'Abstract', 'Ajax', 'Class', 'Control', 'Element', 'Enumerable', 'Effect', 'Event', 'Field',
-            'Form', 'Hash', 'Insertion', 'ObjectRange', 'PeriodicalExecuter',
-            'Position', 'Prototype', 'Selector', 'Template', 'Toggle', 'Try',
-            'ZAPI', '$C', 'APP', 'SITE', '$Z', 'goog', 'google',
-            'window', 'document', 'HAPI', '_', 'jQuery', 'JST',
-            'jasmine', 'describe', 'xdescribe', 'it', 'xit',
-            'Modernizr', 'conditionizr'
+        zoocasa_globals = array_to_object([
+            "ZAPI", "APP", "SITE", "$Z",
+            "google",
+            "jQuery", "$", "_",
+            "JST",
+            "Modernizr", "conditionizr", "History"
+        ], false),
+
+        jasmine_globals = array_to_object([
+            "afterEach", "ajaxRequests", "beforeEach", "clearAjaxRequests", "confirm",
+            "context", "describe", "expect", "it",
+            "jasmine", "loadFixtures", "mostRecentAjaxRequest",
+            "qq", "runs", "spyOn", "spyOnEvent",
+            "waits", "waitsFor", "xdescribe", "xit"
         ], false),
 
         strict_mode,
@@ -703,6 +714,14 @@ var JSLINT = (function () {
         if (option.rhino) {
             add_to_predefined(rhino);
             option.rhino = false;
+        }
+        if (option.zoocasa) {
+            add_to_predefined(zoocasa_globals);
+            option.zoocasa = false;
+        }
+        if (option.jasmine) {
+            add_to_predefined(jasmine_globals);
+            option.jasmine = false;
         }
     }
 

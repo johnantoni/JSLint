@@ -23,6 +23,8 @@ Copyright (c) 2013 J Smith <dark.panda@gmail.com> Node Edition
       'unparam': true,
       'white': true,
       'devel': true,
+      'zoocasa': true,
+      'jasmine': false,
       'verbose': false
     };
 
