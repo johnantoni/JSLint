@@ -607,7 +607,8 @@ var JSLINT = (function () {
             "context", "describe", "expect", "it",
             "jasmine", "loadFixtures", "mostRecentAjaxRequest",
             "qq", "runs", "spyOn", "spyOnEvent",
-            "waits", "waitsFor", "xdescribe", "xit"
+            "waits", "waitsFor", "xdescribe", "xit",
+            "setFixtures"
         ], false),
 
         strict_mode,
